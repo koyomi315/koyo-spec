@@ -47,6 +47,18 @@ cp -r plugins/koyospec/skills/{propose,dev,archive} ~/.claude/skills/
 
 </details>
 
+## 更新
+
+本插件用 `plugin.json` 的 `version` 字段标记版本，**只有版本号 bump 了才算新版**。已装用户更新到最新：
+
+```
+/plugin marketplace update koyospec
+/plugin update koyospec@koyospec
+/reload-plugins
+```
+
+想省事可在 `/plugin` → Marketplaces → 选 `koyospec` → 开启 auto-update（第三方 marketplace 默认关闭），以后 Claude Code 启动时自动拉新版，只会提示 `/reload-plugins`。
+
 ## 快速上手
 
 1. 在你的项目根目录运行 `/koyospec:propose`。
