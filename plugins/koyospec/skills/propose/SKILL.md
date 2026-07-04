@@ -1,20 +1,20 @@
 ---
-name: koyospec-propose
+name: propose
 description: "通过协作式需求澄清把想法变成四份递进文档（spec.md → plan.md → tasks.md → checklist.md），存入 koyospec/<name>/。开始任何功能、模块或章节开发前使用。"
 ---
 
 # Spec 驱动开发 - 提案（Propose）
 
-把想法变成四份递进文档，每份经用户审批后才进入下一阶段。全部通过后交由 `/koyospec-dev` 开发、`/koyospec-archive` 验收归档。
+把想法变成四份递进文档，每份经用户审批后才进入下一阶段。全部通过后交由 `/koyospec:dev` 开发、`/koyospec:archive` 验收归档。
 
 ```
-用户想法 → spec.md → plan.md → tasks.md → checklist.md → 建议 /koyospec-dev
+用户想法 → spec.md → plan.md → tasks.md → checklist.md → 建议 /koyospec:dev
 ```
 
 每份文档在前一份基础上细化。每份都需要用户审批后才能进入下一阶段。
 
 <HARD-GATE>
-四份文档全部生成并获得用户批准之前，禁止编写任何实现代码。无论项目看起来多简单，一律走完流程。开发与验收分别由 `/koyospec-dev`、`/koyospec-archive` 承担。
+四份文档全部生成并获得用户批准之前，禁止编写任何实现代码。无论项目看起来多简单，一律走完流程。开发与验收分别由 `/koyospec:dev`、`/koyospec:archive` 承担。
 </HARD-GATE>
 
 ## 反模式：「这个太简单了，不需要写 spec」
@@ -25,8 +25,8 @@ description: "通过协作式需求澄清把想法变成四份递进文档（spe
 
 - **文档存放**：`koyospec/<name>/`，`<name>` 为 kebab-case（全小写、连字符分隔、不含空格中文）。一个需求对应一个文件夹。
 - **名称由谁决定**：步骤 0 与用户协作——基于变更内容提候选名，让用户确认或修改。
-- **归档**：开发与验收完成后，由 `/koyospec-archive` 把整个文件夹移到 `koyospec/archive/<YYYY-MM-DD>-<name>/`。本命令只负责创建活跃 spec 文件夹，不归档。
-- **多活跃 spec 并行**：允许同时存在多个活跃 spec（多个未归档的需求）。`/koyospec-dev`、`/koyospec-archive` 在多于 1 个时让你选哪个。
+- **归档**：开发与验收完成后，由 `/koyospec:archive` 把整个文件夹移到 `koyospec/archive/<YYYY-MM-DD>-<name>/`。本命令只负责创建活跃 spec 文件夹，不归档。
+- **多活跃 spec 并行**：允许同时存在多个活跃 spec（多个未归档的需求）。`/koyospec:dev`、`/koyospec:archive` 在多于 1 个时让你选哪个。
 
 ## 四份文档的职责
 
@@ -58,8 +58,8 @@ description: "通过协作式需求澄清把想法变成四份递进文档（spe
 阶段四：验收设计 ──→ checklist.md ──→ 用户审批？
                                      │ 不通过：修改
                                      ▼ 通过
-4 份文档齐备 → 建议 /koyospec-dev（阶段五开发）
-            → 完成后 /koyospec-archive（阶段六验收 + 归档）
+4 份文档齐备 → 建议 /koyospec:dev（阶段五开发）
+            → 完成后 /koyospec:archive（阶段六验收 + 归档）
 ```
 
 ---
@@ -115,29 +115,7 @@ description: "通过协作式需求澄清把想法变成四份递进文档（spe
 
 ### spec.md 模板
 
-```markdown
-# [标题] Spec
-
-## 背景
-（要解决什么问题，当前已有什么）
-
-## 目标
-- ...
-
-## 功能需求
-- F1: ...
-- F2: ...
-
-## 非功能需求
-- N1: ...
-
-## 不做的事
-- ...
-
-## 验收标准
-- AC1: ...
-- AC2: ...
-```
+读取 [templates/spec.md](templates/spec.md) 作为模板，填入具体内容后写入 `koyospec/<name>/spec.md`。
 
 ### 写作规则
 
@@ -190,49 +168,7 @@ description: "通过协作式需求澄清把想法变成四份递进文档（spe
 
 ### plan.md 模板
 
-```markdown
-# [标题] Plan
-
-## 架构概览
-（组件/模块划分，每个组件一段话）
-
-## 核心数据结构
-
-### [结构体名]
-（字段定义及说明）
-
-### [接口名]
-（方法签名及用途）
-
-## 模块设计
-
-### [模块 A]
-**职责：** ...
-**对外接口：** ...
-**依赖：** ...
-
-### [模块 B]
-...
-
-## 模块交互
-（调用链、数据流。哪个模块调哪个，什么顺序。）
-
-## 文件组织
-```
-project/
-├── internal/prompt/
-│   ├── builder.go    — Builder、Section 类型、BuildSystemPrompt
-│   ├── sections.go   — 8 个固定 section 函数
-│   └── plan_mode.go  — Plan Mode 提醒构造
-└── ...
-```
-
-## 技术决策
-
-| 决策点 | 选择 | 理由 |
-|--------|------|------|
-| ... | ... | ... |
-```
+读取 [templates/plan.md](templates/plan.md) 作为模板，填入具体内容后写入 `koyospec/<name>/plan.md`。
 
 ### 写作规则
 
@@ -279,47 +215,7 @@ project/
 
 ### tasks.md 模板
 
-````markdown
-# [标题] Tasks
-
-## 文件清单
-
-| 操作 | 文件 | 职责 |
-|------|------|------|
-| 新建 | `internal/prompt/builder.go` | Builder、Section 类型、主入口 |
-| 新建 | `internal/prompt/sections.go` | 8 个固定 section 函数 |
-| 修改 | `internal/tui/tui.go` | 接入 BuildSystemPrompt |
-
-## T1: [任务名]
-
-**文件：** `path/to/file`
-**依赖：** 无
-**步骤：**
-
-1. 定义 Section 结构体，包含 Name、Priority、Content 字段
-2. 定义 Builder 结构体，实现 Add 和 Build 方法
-3. ...
-
-**验证：** `go build ./internal/prompt/...` 编译通过
-
-## T2: [任务名]
-
-**文件：** `path/to/file`
-**依赖：** T1
-**步骤：**
-
-1. ...
-
-**验证：** 运行单元测试，环境字段正确填充
-
-## 执行顺序
-
-```
-T1 → T2 → T3
-            ↘
-T4（可并行）→ T5 → T6
-```
-````
+读取 [templates/tasks.md](templates/tasks.md) 作为模板，填入具体内容后写入 `koyospec/<name>/tasks.md`。
 
 ### 写作规则
 
@@ -367,28 +263,7 @@ T4（可并行）→ T5 → T6
 
 ### checklist.md 模板
 
-```markdown
-# [标题] Checklist
-
-> 每一项通过运行代码或观察行为来验证，聚焦系统行为。
-
-## 实现完整性
-- [ ] [组件 A] 已实现且可被调用（验证：编译通过）
-- [ ] [功能 X] 输出符合预期（验证：用示例输入运行，观察输出）
-
-## 集成
-- [ ] [模块 A] 正确调用 [模块 B]（验证：集成测试通过）
-- [ ] 所有公开接口至少被一个真实调用方使用（验证：编译 + 全部测试通过）
-
-## 编译与测试
-- [ ] 项目编译无错误
-- [ ] 所有单元测试通过
-- [ ] lint 检查通过（如有配置）
-
-## 端到端场景
-- [ ] 场景 1：[用户操作] → [可观测的预期结果]
-- [ ] 场景 2：[边界情况] → [预期行为]
-```
+读取 [templates/checklist.md](templates/checklist.md) 作为模板，填入具体内容后写入 `koyospec/<name>/checklist.md`。
 
 ### 写作规则
 
@@ -446,4 +321,4 @@ T4（可并行）→ T5 → T6
 
 ## 完成后指引
 
-4 份文档（spec.md / plan.md / tasks.md / checklist.md）已全部通过审批并写入 `koyospec/<name>/`。建议运行 `/koyospec-dev` 进入开发阶段（按 tasks.md 执行）。开发完成后用 `/koyospec-archive` 执行验收并归档。
+4 份文档（spec.md / plan.md / tasks.md / checklist.md）已全部通过审批并写入 `koyospec/<name>/`。建议运行 `/koyospec:dev` 进入开发阶段（按 tasks.md 执行）。开发完成后用 `/koyospec:archive` 执行验收并归档。

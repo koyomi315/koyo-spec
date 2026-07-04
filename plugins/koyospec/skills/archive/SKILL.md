@@ -1,11 +1,11 @@
 ---
-name: koyospec-archive
+name: archive
 description: "按 koyospec/<name>/checklist.md 逐项验收，全绿后将文件夹移入 koyospec/archive/<YYYY-MM-DD>-<name>/。开发完成后使用。"
 ---
 
 # Spec 驱动开发 - 归档（Archive）
 
-本命令承接 `/koyospec-dev` 的产物——按 `koyospec/<active>/checklist.md` 执行验收，全绿后把整个 spec 文件夹归档。
+本命令承接 `/koyospec:dev` 的产物——按 `koyospec/<active>/checklist.md` 执行验收，全绿后把整个 spec 文件夹归档。
 
 ## 前置检查：发现活跃 spec
 
@@ -24,7 +24,7 @@ description: "按 koyospec/<name>/checklist.md 逐项验收，全绿后将文件
 选定活跃 spec 后，再次确认该文件夹下 `spec.md`、`plan.md`、`tasks.md`、`checklist.md` 齐全。
 
 - 缺 `checklist.md` 尤其致命（没法验收）。
-- 缺任一 → 输出缺失清单，指引回 `/koyospec-propose` 补齐，停。
+- 缺任一 → 输出缺失清单，指引回 `/koyospec:propose` 补齐，停。
 
 ## 阶段六：验收
 
@@ -63,7 +63,7 @@ description: "按 koyospec/<name>/checklist.md 逐项验收，全绿后将文件
 ## 验收门槛
 
 - **全部通过** → 进入归档移动。
-- **有未通过项** → **不归档**。输出未通过清单 + 修复建议，建议修复后重跑 `/koyospec-archive`，停止。
+- **有未通过项** → **不归档**。输出未通过清单 + 修复建议，建议修复后重跑 `/koyospec:archive`，停止。
 
 归档里只能放真正完成的需求。验收不过硬不归档。
 
@@ -95,4 +95,4 @@ description: "按 koyospec/<name>/checklist.md 逐项验收，全绿后将文件
 
 ## 完成后指引
 
-已归档至 `koyospec/archive/<date>-<name>/`。可运行 `/koyospec-propose` 开始下一个需求。
+已归档至 `koyospec/archive/<date>-<name>/`。可运行 `/koyospec:propose` 开始下一个需求。

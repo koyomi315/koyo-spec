@@ -9,10 +9,10 @@
 ## 工作流
 
 ```
-想法 → /koyospec-propose → spec.md → plan.md → tasks.md → checklist.md
+想法 → /koyospec:propose → spec.md → plan.md → tasks.md → checklist.md
                            （每份经你审批才进下一阶段）
-     → /koyospec-dev      → 按 tasks.md 逐任务实现，每个任务跑验证
-     → /koyospec-archive  → 按 checklist.md 逐项验收，全绿后归档
+     → /koyospec:dev      → 按 tasks.md 逐任务实现，每个任务跑验证
+     → /koyospec:archive  → 按 checklist.md 逐项验收，全绿后归档
 ```
 
 三个命令构成 propose → dev → archive 三阶段，产出统一放在 `koyospec/<name>/`。
@@ -21,9 +21,9 @@
 
 | 命令 | 什么时候用 | 输入 | 产出 |
 |------|-----------|------|------|
-| `/koyospec-propose` | 开始任何功能/模块/章节开发前 | 一个想法 | `koyospec/<name>/` 下四份文档（spec/plan/tasks/checklist） |
-| `/koyospec-dev` | 四份文档审批后 | 上述文档 | 按 tasks.md 实现的代码，tasks 上标 `[x]` |
-| `/koyospec-archive` | 开发完成后 | 上述文档 + 代码 | 验收报告，全绿后整个文件夹移入 `archive/` |
+| `/koyospec:propose` | 开始任何功能/模块/章节开发前 | 一个想法 | `koyospec/<name>/` 下四份文档（spec/plan/tasks/checklist） |
+| `/koyospec:dev` | 四份文档审批后 | 上述文档 | 按 tasks.md 实现的代码，tasks 上标 `[x]` |
+| `/koyospec:archive` | 开发完成后 | 上述文档 + 代码 | 验收报告，全绿后整个文件夹移入 `archive/` |
 
 ## 安装
 
@@ -34,7 +34,7 @@
 /plugin install koyospec
 ```
 
-装好后输入 `/koyospec` 就能看到三个命令的自动补全。
+装好后输入 `/koyospec:` 就能看到三个命令的自动补全。
 
 <details>
 <summary>手动安装（不走 plugin）</summary>
@@ -42,22 +42,22 @@
 把 `plugins/koyospec/skills/` 下的三个文件夹复制到 `~/.claude/skills/`：
 
 ```bash
-cp -r plugins/koyospec/skills/koyospec-* ~/.claude/skills/
+cp -r plugins/koyospec/skills/{propose,dev,archive} ~/.claude/skills/
 ```
 
 </details>
 
 ## 快速上手
 
-1. 在你的项目根目录运行 `/koyospec-propose`。
+1. 在你的项目根目录运行 `/koyospec:propose`。
 2. 它先问你一句话描述要做什么，再提议一个 kebab-case 名字（如 `add-file-upload`），你确认。
 3. 进入四阶段，每阶段逐段呈现并等你审批：
    - **spec.md** — 做什么（背景、目标、功能需求、非功能需求、不做的事、验收标准）
    - **plan.md** — 怎么做（架构、组件、接口、数据结构、技术决策）
    - **tasks.md** — 按什么顺序做（文件清单、有序任务、每个任务带验证方式）
    - **checklist.md** — 做对了没（可观测的行为检查、集成检查、端到端场景）
-4. 四份都过审后，建议运行 `/koyospec-dev` 按 tasks.md 实现。
-5. 开发完跑 `/koyospec-archive` 验收，全绿后归档到 `koyospec/archive/<日期>-<name>/`。
+4. 四份都过审后，建议运行 `/koyospec:dev` 按 tasks.md 实现。
+5. 开发完跑 `/koyospec:archive` 验收，全绿后归档到 `koyospec/archive/<日期>-<name>/`。
 
 ## 四份文档的职责
 
@@ -91,8 +91,8 @@ cp -r plugins/koyospec/skills/koyospec-* ~/.claude/skills/
 ```
 
 - **活跃 spec**：`koyospec/` 下直接子目录，含齐全的四份文档，未归档。
-- **归档**：`/koyospec-archive` 验收全绿后把整个 `<name>/` 移入 `archive/<日期>-<name>/`，原路径消失。
-- **多活跃 spec 可并行**：`/koyospec-dev`、`/koyospec-archive` 在多于 1 个时让你选哪个。
+- **归档**：`/koyospec:archive` 验收全绿后把整个 `<name>/` 移入 `archive/<日期>-<name>/`，原路径消失。
+- **多活跃 spec 可并行**：`/koyospec:dev`、`/koyospec:archive` 在多于 1 个时让你选哪个。
 
 ## 要求
 
@@ -109,9 +109,15 @@ koyo-spec/
 │   ├── .claude-plugin/
 │   │   └── plugin.json         # plugin 清单
 │   └── skills/
-│       ├── koyospec-propose/SKILL.md
-│       ├── koyospec-dev/SKILL.md
-│       └── koyospec-archive/SKILL.md
+│       ├── propose/
+│       │   ├── SKILL.md
+│       │   └── templates/
+│       │       ├── spec.md
+│       │       ├── plan.md
+│       │       ├── tasks.md
+│       │       └── checklist.md
+│       ├── dev/SKILL.md
+│       └── archive/SKILL.md
 ├── README.md
 ├── LICENSE
 └── .gitignore
