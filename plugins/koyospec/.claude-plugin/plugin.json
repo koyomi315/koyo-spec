@@ -1,0 +1,17 @@
+{
+  "name": "koyospec",
+  "version": "0.1.0",
+  "description": "Spec 驱动开发工作流：提案→开发→归档，四份递进文档+硬门禁",
+  "author": {
+    "name": "koyomi315"
+  },
+  "homepage": "https://github.com/koyomi315/koyo-spec",
+  "repository": "https://github.com/koyomi315/koyo-spec",
+  "license": "MIT",
+  "keywords": [
+    "spec",
+    "spec-driven",
+    "workflow",
+    "chinese"
+  ]
+}

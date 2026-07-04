@@ -1,0 +1,16 @@
+{
+  "name": "koyospec",
+  "owner": {
+    "name": "koyomi315"
+  },
+  "metadata": {
+    "pluginRoot": "plugins"
+  },
+  "plugins": [
+    {
+      "name": "koyospec",
+      "source": "./plugins/koyospec",
+      "description": "Spec 驱动开发工作流：propose→dev→archive 三阶段，四份递进文档+硬门禁"
+    }
+  ]
+}

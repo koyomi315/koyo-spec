@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code 本地状态
+.claude/
+
+# 测试时可能生成的 spec 输出（仅根目录，不影响 plugins/koyospec）
+/koyospec/
